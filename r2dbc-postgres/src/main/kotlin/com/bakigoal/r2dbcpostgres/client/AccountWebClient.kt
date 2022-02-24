@@ -32,10 +32,10 @@ class AccountWebClient {
             .bodyToFlux(Account::class.java)
     }
 
-    fun save(account: Account): Mono<Account> {
+    fun save(account: Mono<Account>): Mono<Account> {
         return client.post()
             .uri("/v1/account")
-            .bodyValue(account)
+            .body(account, Account::class.java)
             .retrieve()
             .bodyToMono(Account::class.java)
     }
