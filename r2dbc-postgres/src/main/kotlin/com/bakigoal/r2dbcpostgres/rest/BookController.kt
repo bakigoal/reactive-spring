@@ -3,6 +3,8 @@ package com.bakigoal.r2dbcpostgres.rest
 import com.bakigoal.r2dbcpostgres.model.Book
 import com.bakigoal.r2dbcpostgres.repo.BookRepo
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
@@ -20,8 +22,8 @@ class BookController {
     fun find(@PathVariable id: Long) = bookRepo.findById(id)
 
     @PostMapping
-    fun create(@RequestBody book: Book): Mono<Book> {
-        return bookRepo.save(book)
+    fun create(@RequestBody book: Book): Mono<ResponseEntity<Book>> {
+        return bookRepo.save(book).map { ResponseEntity.status(HttpStatus.CREATED).body(it) }
     }
 
     @PutMapping("/{id}")
