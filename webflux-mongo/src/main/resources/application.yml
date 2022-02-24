@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: webflux-mongo
+  data:
+    mongodb:
+      uri: mongodb://mongo:mongo@192.168.0.111
+      database: reactive-mongo
