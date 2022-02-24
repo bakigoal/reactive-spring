@@ -11,3 +11,7 @@ spring:
     user: postgres
     password: postgres
     default-schema: PUBLIC
+
+services:
+  accountService:
+    url: http://localhost:8081
