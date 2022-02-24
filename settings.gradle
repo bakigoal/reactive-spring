@@ -1,3 +1,1 @@
 rootProject.name = 'reactive-spring'
-
-include("webflux-mongo")

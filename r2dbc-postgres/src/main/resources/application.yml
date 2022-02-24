@@ -1,0 +1,28 @@
+server:
+  port: 8082
+
+# Database configuration
+db:
+  name: bakigoal_db
+  host: 192.168.0.111
+  port: 5432
+  username: postgres
+  password: postgres
+  schema: r2dbc_postgres
+
+spring:
+  r2dbc:
+    pool:
+      enabled: true
+    url: r2dbc:postgresql://${db.host}:${db.port}/${db.name}?currentSchema=${db.schema}
+    username: ${db.username}
+    password: ${db.password}
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+    url: jdbc:postgresql://${db.host}:${db.port}/${db.name}
+    user: ${db.username}
+    password: ${db.password}
+    default-schema: ${db.schema}
+
+logging.level.org.springframework.r2dbc: DEBUG
