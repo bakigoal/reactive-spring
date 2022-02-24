@@ -13,4 +13,34 @@
             <column name="author" type="varchar(255)"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="20220224-2" author="Bakigoal">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="book" columnName="report_dt"/>
+            </not>
+        </preConditions>
+
+        <addColumn tableName="book">
+            <column name="create_time" type="timestamp" remarks="Дата создания"
+                    defaultValueComputed="current_timestamp"/>
+        </addColumn>
+
+        <comment>Расширение таблицы book полем create_time</comment>
+    </changeSet>
+
+    <changeSet id="20220224-3" author="Bakigoal">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists tableName="book" columnName="report_dt"/>
+            </not>
+        </preConditions>
+
+        <addColumn tableName="book">
+            <column name="last_modify_time" type="timestamp" remarks="Дата обновления"
+                    defaultValueComputed="current_timestamp"/>
+        </addColumn>
+
+        <comment>Расширение таблицы book полем create_time</comment>
+    </changeSet>
 </databaseChangeLog>

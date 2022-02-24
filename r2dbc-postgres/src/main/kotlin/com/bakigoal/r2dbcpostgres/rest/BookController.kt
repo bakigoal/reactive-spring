@@ -5,7 +5,6 @@ import com.bakigoal.r2dbcpostgres.repo.BookRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
-import java.util.*
 
 @RestController
 @RequestMapping("/v1/book")
@@ -18,7 +17,7 @@ class BookController {
     fun findAll() = bookRepo.findAll()
 
     @GetMapping("/{id}")
-    fun find(@PathVariable id: String) = bookRepo.findById(id)
+    fun find(@PathVariable id: Long) = bookRepo.findById(id)
 
     @PostMapping
     fun create(@RequestBody book: Book): Mono<Book> {
@@ -27,11 +26,14 @@ class BookController {
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Long, @RequestBody book: Book): Mono<Book> {
-        book.id = id
-        return bookRepo.save(book)
+        return bookRepo.findById(id).flatMap {
+            book.id = it.id
+            book.createTime = it.createTime
+            bookRepo.save(book)
+        }
     }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: String) =
+    fun delete(@PathVariable id: Long) =
         bookRepo.findById(id).doOnNext { bookRepo.delete(it).subscribe() }
 }
