@@ -13,8 +13,10 @@ import org.springframework.web.reactive.function.server.RouterFunction
 import org.springframework.web.reactive.function.server.RouterFunctions
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
+import org.springframework.web.reactive.function.server.ServerResponse.created
 import org.springframework.web.reactive.function.server.ServerResponse.ok
 import reactor.core.publisher.Mono
+import java.net.URI
 
 @Configuration
 @Component
@@ -32,10 +34,10 @@ class AccountController(@Autowired val accountWebClient: AccountWebClient) {
     }
 
     private fun create(serverRequest: ServerRequest): Mono<ServerResponse> {
-        return ok().body(
-            accountWebClient.save(serverRequest.body(BodyExtractors.toMono(Account::class.java))),
-            Account::class.java
-        )
+        return accountWebClient.save(serverRequest.body(BodyExtractors.toMono(Account::class.java)))
+            .flatMap {
+                created(URI.create("/v1/account/${it.id}")).bodyValue(it)
+            }
     }
 }
 
