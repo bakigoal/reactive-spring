@@ -23,6 +23,24 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/rabbit-client" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/rabbit-client" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/rabbit-server" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/rabbit-server" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/webflux-mongo" />
         <option name="modules">
           <set>
